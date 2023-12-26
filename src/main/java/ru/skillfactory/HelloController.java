@@ -1,16 +1,27 @@
 package ru.skillfactory;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import ru.skillfactory.dto.StudentData;
 
-@Controller
+@RestController
 @RequestMapping("/hello")
 public class HelloController {
-    @RequestMapping(value = "/student", method = RequestMethod.GET)
-    @ResponseBody
+    //Метод для передачи данных
+    @GetMapping("/student")
     public String helloStudent() {
         return "Hello, student!";
+    }
+    // Метод который приветствует по имени (позволяет динамически менять name)
+    @RequestMapping(value = "/greetings/{name}")
+    public String greetingsByName(@PathVariable String name) {
+        return "Hello, " + name;
+    }
+
+    @RequestMapping(value = "/student/submit/")
+    // Аннотация @RequestBody говорит о том, что данный объект представлен в запросе как форм-дата
+    // и Spring MVC будет пытаться сконвертировать данные из форм-дата из запроса в данный класс
+    public String giveMeFeedbackAboutGrade(@RequestBody StudentData studentData) {
+        return "You are great with your grade " + studentData.getGrade();
     }
 }
