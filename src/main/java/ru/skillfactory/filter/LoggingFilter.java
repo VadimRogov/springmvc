@@ -39,7 +39,7 @@ public class LoggingFilter extends OncePerRequestFilter {
         if(isAsyncDispatch(httpServletRequest)) {
             filterChain.doFilter(httpServletRequest, httpServletResponse);
         } else {
-            doFilterWrapped(wrapRequest(httpServletRequest), wrapResponse(httpServletRequest), filterChain);
+            doFilterWrapped(wrapRequest(httpServletRequest), wrapResponse(httpServletResponse), filterChain);
         }
     }
     // Метод будет обарачивать наши запросы и ответы
