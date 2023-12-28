@@ -1,5 +1,6 @@
 package ru.skillfactory;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.skillfactory.dto.StudentData;
@@ -18,10 +19,12 @@ public class HelloController {
         return "Hello, " + name;
     }
 
-    @RequestMapping(value = "/student/submit/")
+    @RequestMapping(value = "/student/submit")
+    @ResponseStatus(HttpStatus.OK)
     // Аннотация @RequestBody говорит о том, что данный объект представлен в запросе как форм-дата
     // и Spring MVC будет пытаться сконвертировать данные из форм-дата из запроса в данный класс
     public String giveMeFeedbackAboutGrade(@RequestBody StudentData studentData) {
-        return "You are great with your grade " + studentData.getGrade();
+        return "You are great with your grade " + studentData.getFirstName()
+                + studentData.getLastName() + studentData.getGrade();
     }
 }
