@@ -8,7 +8,11 @@
 
     <mvc:annotation-driven/>
 
-    <mvc:resources mapping="/resources/**" location="/resources/"/>
+    <mvc:interceptors>
+        <bean id="proxyInterceptor" class="ru.skillfactory.interceptor.ProxyInterceptor"/>
+    </mvc:interceptors>
+
+    <mvc:resources mapping="/resources/**" location="/WEB-INF/"/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix">
@@ -19,4 +23,6 @@
         </property>
     </bean>
 
+    <bean id="swaggerConfig" class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration"/>
+    <mvc:default-servlet-handler/>
 </beans>
